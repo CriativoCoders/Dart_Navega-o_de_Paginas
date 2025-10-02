@@ -6,69 +6,84 @@ void main() {
   runApp(const MyApp());
 }
 
-//criar uma classe inicializadora que vai chamar a tela principal
+// Classe principal que inicializa o app
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: TelaAssets());
+  Widget build(BuildContext context) { // tudo isso aqui e para estilizar o app, e deixar ele mais bonito
+    return MaterialApp(
+      title: 'Portfólio',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: const Color.fromARGB(255, 218, 109, 208),
+        textTheme: GoogleFonts.oswaldTextTheme(),
+        appBarTheme: const AppBarTheme( // estulizar o appbar
+          backgroundColor: Color.fromARGB(255, 218, 109, 208), // cor de fundo do appbar
+          centerTitle: true,
+          toolbarHeight: 200,
+          titleTextStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 218, 109, 208),
+            shape: const CircleBorder(),
+            padding: const EdgeInsets.all(16),
+          ),
+        ),
+      ),
+      home: const TelaAssets(),
+    );
   }
 }
+ 
 
+// tela principal do app
 class TelaAssets extends StatelessWidget {
   const TelaAssets({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(textTheme: GoogleFonts.oswaldTextTheme()),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Tela Assets,Bem vindo!✔😍"),
-          centerTitle: true,
-          backgroundColor: Colors.teal,
-          toolbarHeight: 200,
-        ),
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.network(
-                "https://images.unsplash.com/photo-1758825175271-168064c2004c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8",
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Bem vindo ao meu Portfólio"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 20),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                "assets/images/talita.jpg",
                 width: 200,
                 height: 150,
                 fit: BoxFit.cover,
               ),
-              const SizedBox(height: 20),
-              Image.asset(
-                "assets/images/img.jpg",
-                width: 200,
-                height: 150,
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                "Imagem da internet e do projeto",
-                style: TextStyle(fontFamily: "Oswald", fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "Esse é o texto exemplo com biblioteca Google Fonts",
-                style: TextStyle(fontSize: 16),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Tela2()),
-                  );
-                },
-                child: Icon(Icons.play_arrow),
-              ), // botão de exemplo
-            ],
-          ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              "Imagem da internet e do projeto",
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              "Esse é o texto exemplo com biblioteca Google Fonts",
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Tela2()),
+                );
+              },
+              child: const Icon(Icons.play_arrow, size: 32),
+            ),
+          ],
         ),
       ),
     );

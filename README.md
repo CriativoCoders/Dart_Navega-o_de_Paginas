@@ -184,3 +184,6 @@ flutter run
 - Use const sempre que possível para melhorar desempenho.
 
 - Para navegação, crie telas como widgets separados que retornam Scaffold.
+
+
+

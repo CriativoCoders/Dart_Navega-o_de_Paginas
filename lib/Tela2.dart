@@ -8,7 +8,7 @@ class Tela2 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Exemplo Tela 2"),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 218, 109, 208),
       ),
       body: const Center(
         child: Text("Conteúdo da Tela 2"),
