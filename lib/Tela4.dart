@@ -3,57 +3,12 @@ import 'package:flutter/material.dart';
 class Tela4 extends StatelessWidget {
   const Tela4({super.key});
 
-  // lista de passos do projeto
+  // Lista de projetos
   final List<Map<String, String>> passos = const [
     {
-      "titulo": "Passo 1: Montagem da base",
-      "descricao": "Aqui você monta a base do robô com as estruturas de suporte.",
-      "imagem": "assets/images/robo1.png",
-    },
-    {
-      "titulo": "Passo 2: Instalação dos motores",
-      "descricao": "Conecte os motores elétricos na base montada.",
-      "imagem": "assets/images/robo2.png",
-    },
-    {
-      "titulo": "Passo 3: Conexão do Arduino",
-      "descricao": "Posicione o Arduino e conecte os fios aos motores.",
-      "imagem": "assets/images/robo3.png",
-    },
-    {
-      "titulo": "Passo 4: Programação inicial",
-      "descricao": "Carregue o código básico para controlar os motores.",
-      "imagem": "assets/images/robo4.png",
-    },
-    {
-      "titulo": "Passo 5: Teste dos motores",
-      "descricao": "Verifique se os motores respondem ao controle do Arduino.",
-      "imagem": "assets/images/robo5.png",
-    },
-    {
-      "titulo": "Passo 6: Montagem dos sensores",
-      "descricao": "Adicione sensores para melhorar a navegação do robô.",
-      "imagem": "assets/images/robo6.png",
-    },
-    {
-      "titulo": "Passo 7: Integração dos sensores",
-      "descricao": "Conecte os sensores ao Arduino e teste suas leituras.",
-      "imagem": "assets/images/robo7.png",
-    },
-    {
-      "titulo": "Passo 8: Programação avançada",
-      "descricao": "Implemente funcionalidades avançadas no código.",
-      "imagem": "assets/images/robo8.png",
-    },
-    {
-      "titulo": "Passo 9: Teste final",
-      "descricao": "Realize o teste completo do robô em diferentes condições.",
-      "imagem": "assets/images/robo9.png",
-    },
-    {
-      "titulo": "Passo 10: Finalização",
-      "descricao": "Ajuste e finalize todos os componentes para o uso final.",
-      "imagem": "assets/images/robo10.png",
+      "titulo": "Robo Arduino",
+      "descricao": "Robo Arduino com sensor de obstáculo.",
+      "imagem": "assets/images/robo.png",
     },
   ];
 
@@ -64,14 +19,52 @@ class Tela4 extends StatelessWidget {
         title: const Text("Projetos Pessoais"),
         backgroundColor: const Color.fromARGB(255, 218, 109, 208),
       ),
-      body: ListView.builder(
+      body: ListView(
         padding: const EdgeInsets.all(16),
-        itemCount: passos.length,
-        itemBuilder: (context, index) {
-          final passo = passos[index];
-          return Card(
+        children: [
+          // Card do projeto
+          ...passos.map((passo) => Card(
+                elevation: 4,
+                margin: const EdgeInsets.only(bottom: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        passo["titulo"]!,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 218, 109, 208),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset(
+                          passo["imagem"]!,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: 300,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        passo["descricao"]!,
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ),
+              )),
+
+          // Card do Quiz separado
+          Card(
             elevation: 4,
-            margin: const EdgeInsets.only(bottom: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -79,36 +72,117 @@ class Tela4 extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   Text(
-                    passo["titulo"]!,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 218, 109, 208),
-                    ),
+                    'Quiz sobre tecnologia:',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 10),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      passo["imagem"]!,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 180,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    passo["descricao"]!,
-                    style: const TextStyle(fontSize: 14),
-                  ),
+                  SizedBox(height: 10),
+                  QuizGame(), // Quiz separado do projeto
                 ],
               ),
             ),
-          );
-        },
+          ),
+        ],
       ),
+    );
+  }
+}
+
+// ===================== QuizGame ======================
+
+class QuizGame extends StatefulWidget {
+  const QuizGame({super.key});
+
+  @override
+  _QuizGameState createState() => _QuizGameState();
+}
+
+class _QuizGameState extends State<QuizGame> {
+  int currentQuestion = 0;
+  int score = 0;
+
+  final List<Map<String, Object>> questions = [
+    {
+      'question': 'Qual a capital do Brasil?',
+      'answers': ['São Paulo', 'Rio de Janeiro', 'Brasília', 'Belo Horizonte'],
+      'correct': 2,
+    },
+    {
+      'question': 'Flutter é feito com qual linguagem?',
+      'answers': ['Java', 'Dart', 'Python', 'Kotlin'],
+      'correct': 1,
+    },
+    {
+      'question': 'Qual resultado de 10 + 5?',
+      'answers': ['10', '15', '20', '25'],
+      'correct': 1,
+    },
+    {
+      'question': 'qual resultado de 10 * 5?',
+      'answers': ['10', '15', '20', '25'],
+      'correct': 3,
+    },
+  ];
+
+  void checkAnswer(int selectedIndex) {
+    if (selectedIndex == questions[currentQuestion]['correct']) {
+      score++;
+    }
+
+    setState(() {
+      currentQuestion++;
+    });
+  }
+
+  void restartQuiz() {
+    setState(() {
+      score = 0;
+      currentQuestion = 0;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (currentQuestion >= questions.length) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'Você acertou $score de ${questions.length} perguntas!',
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: restartQuiz,
+            child: const Text('Reiniciar Quiz'),
+          ),
+        ],
+      );
+    }
+
+    final question = questions[currentQuestion];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          question['question'] as String,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        ...(question['answers'] as List<String>).asMap().entries.map((entry) {
+          int idx = entry.key;
+          String text = entry.value;
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: ElevatedButton(
+              onPressed: () => checkAnswer(idx),
+              child: Text(text),
+            ),
+          );
+        }).toList(),
+      ],
     );
   }
 }

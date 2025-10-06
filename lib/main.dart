@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
+// aqui eu criei uma classe para gerenciar as abas
 class HomeWithTabs extends StatelessWidget {
   const HomeWithTabs({super.key});
   
@@ -133,8 +133,3 @@ class Tela4 extends StatelessWidget {
   }
 }
 
-// ---------------------- Tela2 ----------------------
-// Coloque aqui sua implementação da Tela2 (Tecnologias) ou importe ela
-
-// ---------------------- Tela3 ----------------------
-// Coloque aqui sua implementação da Tela3 (Sobre mim) ou importe ela
